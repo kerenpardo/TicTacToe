@@ -1,19 +1,37 @@
 .card {
     width: 120px;
-    height: 150px;
-    background-size: 110px 140px;
+    height: 120px;
+    /* background-size: 110px 140px; */
     background-color: aqua;
     border-radius: 10px;
     border: 2px grey solid;
     padding: 60px 40px 40px 45px;
-    color: rgb(24, 199, 65);
-    
-  }
-  #board {
-    display: flex;
+     display: flex;
     justify-content: center;
+    align-items: center; 
+  }
+  
+  #board {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    width: 450px;
+    min-height:min-content;
+    margin-top:50px;
+     display: flex;
+    justify-content: center; 
+     align-items: center; 
     background-color: beige;
     border: 5px royalblue solid;
     border-radius: 10px;
-   
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    perspective: 1000px;
+    
   }
+  body{
+    display: flex;
+  justify-content: center;
+  
+  align-items: center;
+  }
+  
