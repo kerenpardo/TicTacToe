@@ -1,0 +1,19 @@
+.card {
+    width: 120px;
+    height: 150px;
+    background-size: 110px 140px;
+    background-color: aqua;
+    border-radius: 10px;
+    border: 2px grey solid;
+    padding: 60px 40px 40px 45px;
+    color: rgb(24, 199, 65);
+    
+  }
+  #board {
+    display: flex;
+    justify-content: center;
+    background-color: beige;
+    border: 5px royalblue solid;
+    border-radius: 10px;
+   
+  }
