@@ -1,14 +1,15 @@
-.card {
+div.card {
     width: 120px;
     height: 120px;
-    /* background-size: 110px 140px; */
-    background-color: aqua;
-    border-radius: 10px;
-    border: 2px grey solid;
-    padding: 60px 40px 40px 45px;
-     display: flex;
+      /* background-size: 110px 140px;   */
+    /* background-color:white;  */
+    /* border-radius: 10px;  */
+    /* border-right: 2px black solid;
+    border-bottom: 2px black solid; */
+    /* padding: 40px 40px 40px 40px; */
+     /* display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;   */
   }
   
   #board {
@@ -20,7 +21,7 @@
      display: flex;
     justify-content: center; 
      align-items: center; 
-    background-color: beige;
+    background-color:blanchedalmond;
     border: 5px royalblue solid;
     border-radius: 10px;
     display: grid;
@@ -31,7 +32,14 @@
   body{
     display: flex;
   justify-content: center;
-  
   align-items: center;
   }
+
+  div.horizontal-Line{
+    border-bottom: 2.4px solid black;
+
+  }
   
+  div.vertical-Line{
+    border-right: 2.4px solid black;
+  }

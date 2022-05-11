@@ -30,7 +30,6 @@ let activePlayer = null;
 
 function init() {
   for (let i = 0; i < numOfCards / 3; i++) {
-   
     for (let j = 0; j < numOfCards / 3; j++) {
       let card = new Card(i, j, null);
       board[i][j] = card;
@@ -38,7 +37,15 @@ function init() {
       divElement.id = i + "" + j;
       divElement.classList.add('card');
       document.querySelector('#board').appendChild(divElement);
-      document.querySelector('#board').classList.add('board');
+      document.querySelector('#board').classList.add('baord');
+      if (i == 0 || i == 1) {
+        divElement.classList.add('horizontal-Line');
+      }
+      if (j == 0 || j == 1) {
+        divElement.classList.add('vertical-Line');
+      }
+
+
     }
   }
 }
