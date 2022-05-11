@@ -35,7 +35,7 @@ function init() {
       board[i][j] = card;
       let divElement = document.createElement('div');
       divElement.id = i + "" + j;
-      divElement.classList.add('card');
+      divElement.classList.add('cards');
       document.querySelector('#board').appendChild(divElement);
       document.querySelector('#board').classList.add('baord');
       if (i == 0 || i == 1) {
