@@ -11,8 +11,45 @@
       rel="stylesheet"
     />
   </head>
-
+  <button id="start">Start</button>
+    <button id="stop">Stop</button>
+    <span id="span"> </span>
+    <!-- <script src="timer.js"></script> -->
+  <nav class="container-fluid d-flex align-items-center text-center">
+    <div class="container">
+      <div class="div_inside">
+        <a href="#">משחק חדש</a>
+        <a href="#">מחיקת צעד אחרון</a>
+        <a href="#">הצג שיא</a>
+        <a href="#">שמור משחק</a>
+        <a href="#">טען משחק</a>
+      </div>
+    </div>
+  </nav>
   <body>
+    <div id="players" class="container-fluid">
+      <div class="row justify-content-center">
+        <div id="activePlayer" class="col-12 d-flex justify-content-center">
+          <h2>Enter player's names</h2>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-2 d-flex justify-content-center">
+          <img id="player1" name="player" src="images/o.png" />
+        </div>
+        <div class="col-2 d-flex justify-content-center">
+          <img id="player2" name="player" src="images/x.png" />
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-2 d-flex justify-content-center">
+          <input id="1"placeholder="Enter first player's name" />
+        </div>
+        <div class="col-2 d-flex justify-content-center">
+          <input id="2"placeholder="Enter second player's name" />
+        </div>
+      </div>
+    </div>
     <div id="board" class="container-fluid d-flaex py-3 "></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
