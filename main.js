@@ -1,20 +1,22 @@
 
 
-function Player(id, name) {
+function Player(id, name,cssClass) {
   this.id = id;
   this.name = name;
   this.cards = [];
   this.active = false;
+  this.cssClass=cssClass;
   this.addScore = function () {
     this.pairs++;
   };
   this.showMe = function () {
     document.getElementById(
       `player${id}`
-    ).innerHTML = `<div name="player" id="player1">${this.name} found ${this.pairs} pairs</div>`;
+    ).innerHTML = `<div name="player" id="player1">${this.name} found ${this.cards} pairs</div>`;
   };
   this.myTurn = function () {
     document.getElementById(`player${id}`).classList.add("activePlayer");
+    // this.active=true;
   };
 }
 
@@ -38,17 +40,19 @@ const numOfPlayers = 2;
 
 function init() {
   if (
-    document.getElementById(`player1`).value == undefined ||
-    document.getElementById(`player2`).value == undefined
+    document.getElementById(`player1`).value != undefined &&
+    document.getElementById(`player2`).value != undefined
   ) {
     for (let p = 0; p < numOfPlayers; p++) {
       let playerName = document.getElementById(`player${p + 1}`).value;
       players.push(new Player(p + 1, playerName));
     }
-    activePlayer = players[0];
-    players[0].active = true;
+    players[0].cssClass="Xcard";
+    players[1].cssClass="Ocard";
+
     players.forEach((v) => v.showMe());
     players[0].myTurn();
+    activePlayer = players[0];
     for (let i = 0; i < numOfCards / 3; i++) {
       for (let j = 0; j < numOfCards / 3; j++) {
         let card = new Card(i, j, null);
@@ -58,7 +62,7 @@ function init() {
         divElement.classList.add('cards');
         document.querySelector('#board').appendChild(divElement);
         document.querySelector('#board').classList.add('baord');
-        // divElement.addEventListener('click',)
+        divElement.addEventListener('click',showCard)
         if (i == 0 || i == 1) {
           divElement.classList.add('horizontal-Line');
         }
@@ -97,6 +101,17 @@ function init() {
     let minutes = Math.floor(num / 60);
     let seconds = num % 60;
     return hours + ":" + minutes + ":" + seconds;
+  }
+
+  function showCard(e){
+    e.target.classList.add(activePlayer.cssClass);
+    for(p of players){
+      p.active=!p.active
+      if(activePlayer.id!=p.id){
+        activePlayer=p;
+        activePlayer.myTurn();
+      }
+    }
   }
   function CheckGameWon(card) {
     let x = card.row;

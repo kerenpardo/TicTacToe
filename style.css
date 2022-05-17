@@ -2,12 +2,25 @@ div.cards {
     width: 120px;
     height: 120px;
       background-size: 110px 140px;   
-    background-color:white;  
+    background-color:yellow;
      padding: 40px 40px 40px 40px; 
       display: flex;
     justify-content: center;
     align-items: center;  
   }
+  .cards:hover{
+    cursor: pointer;
+  }
+  .Xcard{
+    background-image: url('./images/x.png');
+    background-color: aqua;
+
+  }
+  .Ocard{
+    background-image: url('./images/o.png');
+    background-color: brown;
+  }
+
   
   #board {
     padding-top: 40px;
