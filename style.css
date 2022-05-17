@@ -1,6 +1,6 @@
 div.cards {
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 140px;
       background-size: 110px 140px;   
     background-color:yellow;
      padding: 40px 40px 40px 40px; 
@@ -12,16 +12,15 @@ div.cards {
     cursor: pointer;
   }
   .Xcard{
-    background-image: url('./images/x.png');
-    background-color: aqua;
-
+    background-image:  url('./images/XX.png');
+    background-repeat: no-repeat;
+    
   }
   .Ocard{
-    background-image: url('./images/o.png');
-    background-color: brown;
+    background-image: url('./images/OO.png');
+    background-repeat: no-repeat;
   }
 
-  
   #board {
     padding-top: 40px;
     padding-bottom: 40px;

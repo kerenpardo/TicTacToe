@@ -1,11 +1,11 @@
 
 
-function Player(id, name,cssClass) {
+function Player(id, name, cssClass) {
   this.id = id;
   this.name = name;
   this.cards = [];
   this.active = false;
-  this.cssClass=cssClass;
+  this.cssClass = cssClass;
   this.addScore = function () {
     this.pairs++;
   };
@@ -26,7 +26,7 @@ function Card(row, col, frontImg) {
   this.col = col;
   this.frontImg = frontImg;
   this.disable = function () {
-    this.divElement.removeEventListener("click", flipCard);
+    this.divElement.removeEventListener('click', showCard);
     this.divElement.style.pointerEvents = "none";
   };
 }
@@ -37,6 +37,7 @@ const card = [];
 const numOfCards = 9;
 let activePlayer = null;
 const numOfPlayers = 2;
+let gameCards = [];
 
 function init() {
   if (
@@ -47,8 +48,8 @@ function init() {
       let playerName = document.getElementById(`player${p + 1}`).value;
       players.push(new Player(p + 1, playerName));
     }
-    players[0].cssClass="Xcard";
-    players[1].cssClass="Ocard";
+    players[0].cssClass = "Xcard";
+    players[1].cssClass = "Ocard";
 
     players.forEach((v) => v.showMe());
     players[0].myTurn();
@@ -62,98 +63,95 @@ function init() {
         divElement.classList.add('cards');
         document.querySelector('#board').appendChild(divElement);
         document.querySelector('#board').classList.add('baord');
-        divElement.addEventListener('click',showCard)
+        divElement.addEventListener('click', showCard)
         if (i == 0 || i == 1) {
           divElement.classList.add('horizontal-Line');
         }
         if (j == 0 || j == 1) {
           divElement.classList.add('vertical-Line');
         }
-
-
       }
     }
   }
 }
-  init();
+init();
 
 
-  function timer(date1, date2) {
-    return (date2 - date1) / 1000;
-  }
-  let btnStart = document.getElementById('start');
-  let btnStop = document.getElementById('stop');
-  let span = document.getElementById('span');
-  let timeStart, timeStop;
+function timer(date1, date2) {
+  return (date2 - date1) / 1000;
+}
+let btnStart = document.getElementById('start');
+let btnStop = document.getElementById('stop');
+let span = document.getElementById('span');
+let timeStart, timeStop;
 
-  btnStart.addEventListener('click', () => { timeStart = Date.now(); span.innerText = 0; });
-  btnStop.addEventListener('click', () => { clearInterval(myVar) }); //span.innerText= timer(timeStart,timeStop);
+btnStart.addEventListener('click', () => { timeStart = Date.now(); span.innerText = 0; });
+btnStop.addEventListener('click', () => { clearInterval(myVar) }); //span.innerText= timer(timeStart,timeStop);
 
-  let myVar = setInterval(myTimer, 1000);
+let myVar = setInterval(myTimer, 1000);
 
-  function myTimer() {
-    const d = new Date();
-    span.innerHTML = time_convert(Math.round(timer(timeStart, Date.now())));
-  }
+function myTimer() {
+  const d = new Date();
+  span.innerHTML = time_convert(Math.round(timer(timeStart, Date.now())));
+}
 
-  function time_convert(num) {
-    let hours = Math.floor(num / 3600);
-    let minutes = Math.floor(num / 60);
-    let seconds = num % 60;
-    return hours + ":" + minutes + ":" + seconds;
-  }
+function time_convert(num) {
+  let hours = Math.floor(num / 3600);
+  let minutes = Math.floor(num / 60);
+  let seconds = num % 60;
+  return hours + ":" + minutes + ":" + seconds;
+}
 
-  function showCard(e){
-    e.target.classList.add(activePlayer.cssClass);
-    for(p of players){
-      p.active=!p.active
-      if(activePlayer.id!=p.id){
-        activePlayer=p;
-        activePlayer.myTurn();
-      }
+function showCard(e) {
+  e.target.classList.add(activePlayer.cssClass);
+  e.target.disable();
+  for (p of players) {
+    p.active = !p.active
+    if (activePlayer.id != p.id) {
+      activePlayer = p;
+      activePlayer.myTurn();
     }
   }
-  function CheckGameWon(card) {
-    let x = card.row;
-    let y = card.col;
-    let n = numOfCards / 3;
+}
+function CheckGameWon(card) {
+  let x = card.row;
+  let y = card.col;
+  let n = numOfCards / 3;
 
-    //check row
-    for (let j = 0; j < n; j++) {
-      if (board[x][j].frontImg != card.frontImg) break;
-      if (j == n - 1) {
-        //GAME WON
-      }
+  //check row
+  for (let j = 0; j < n; j++) {
+    if (board[x][j].frontImg != card.frontImg) break;
+    if (j == n - 1) {
+      //GAME WON
     }
+  }
 
-    //check row
+  //check row
+  for (let i = 0; i < n; i++) {
+    if (board[i][y].frontImg != card.frontImg) break;
+    if (i == n - 1) {
+      //GAME WON
+    }
+  }
+
+  //check diag
+  if (x == y) {
     for (let i = 0; i < n; i++) {
-      if (board[i][y].frontImg != card.frontImg) break;
+      if (board[i][i].frontImg != card.frontImg) break;
       if (i == n - 1) {
         //GAME WON
       }
     }
-
-    //check diag
-    if (x == y) {
-      for (let i = 0; i < n; i++) {
-        if (board[i][i].frontImg != card.frontImg) break;
-        if (i == n - 1) {
-          //GAME WON
-        }
-      }
-    }
-
-    //check anti diag
-    if (x + y == n - 1) {
-      for (let i = 0; i < n; i++) {
-        if (board[i][n - 1 - i].frontImg != card.frontImg) break;
-        if (i == n - 1) {
-          //GAME WON
-        }
+  }
+  //check anti diag
+  if (x + y == n - 1) {
+    for (let i = 0; i < n; i++) {
+      if (board[i][n - 1 - i].frontImg != card.frontImg) break;
+      if (i == n - 1) {
+        //GAME WON
       }
     }
   }
-
+}
 
 // }
