@@ -16,7 +16,7 @@ function Player(id, name, cssClass) {
   };
   this.myTurn = function () {
     document.getElementById(`player${id}`).classList.add("activePlayer");
-    // this.active=true;
+    // this.active = tr;
   };
 }
 
@@ -38,7 +38,7 @@ const numOfCards = 9;
 let activePlayer = null;
 const numOfPlayers = 2;
 let gameCards = [];
-
+ 
 function init() {
   if (
     document.getElementById(`player1`).value != undefined &&
@@ -47,6 +47,7 @@ function init() {
     for (let p = 0; p < numOfPlayers; p++) {
       let playerName = document.getElementById(`player${p + 1}`).value;
       players.push(new Player(p + 1, playerName));
+      
     }
     players[0].cssClass = "Xcard";
     players[1].cssClass = "Ocard";
@@ -109,7 +110,7 @@ function showCard(e) {
     p.active = !p.active
     if (activePlayer.id != p.id) {
       activePlayer = p;
-      activePlayer.myTurn();
+     activePlayer.myTurn();
     }
   }
 }

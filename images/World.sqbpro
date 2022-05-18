@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/97254/Downloads/World (3).db3" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="150"/><column_width id="3" width="3902"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,4:mainCity"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1"> /*Q1*/
+ SELECT Name FROM COUNTRY 
+
+
+</sql><sql name="SQL 2">/*Q2*/
+SELECT NAME FROM COUNTRY 
+WHERE CODE='ISL'
+</sql><sql name="SQL 3">/*Q3*/
+SELECT NAME FROM Country
+WHERE CODE IN('LBR','IOT', 'TKL')</sql><sql name="SQL 4">/*Q4*/
+SELECT NAME FROM Country
+WHERE Continent='Asia'</sql><sql name="SQL 5">/*Q5*/
+SELECT name FROM Country
+WHERE Name like '%N' AND length(name)&lt;10</sql><sql name="SQL 6">/*Q6*/
+SELECT Name, IndepYear, Population FROM Country
+WHERE IndepYear BETWEEN 1000 and 1400
+
+</sql><sql name="SQL 8">/*Q7*/
+דדדדדדד-SELECT NAME, CAST(population AS REAL)  FROM Country
+WHERE NAME like 'Z%' AND ROUND(Population ,2) 
+</sql><sql name="SQL 10">/*Q8*/
+SELECT NAME from Country
+WHERE IndepYear IS NULL</sql><sql name="SQL 11">/*Q9*/
+/*SELECT NAME FROM Country
+WHERE GNP&gt;GNPOld*2
+/*Q11*/
+/*SELECT COUNT(*) FROM Country
+/*Q12*/
+/*SELECT COUNT(LifeExpectancy) from Country
+/*Q13*/
+/*SELECT count(DISTINCT Continent) from Country
+/*Q14*/
+/*SELECT avg(LifeExpectancy) from Country
+/*Q15*/
+/*SELECT avg(LifeExpectancy)FROM Country
+WHERE SurfaceArea&gt;1000000</sql><sql name="SQL 12">/*Q16*/
+/*SELECT name from Country
+WHERE SurfaceArea=(SELECT max(SurfaceArea )FROM Country)
+
+/*Q17*/
+--SELECT name from Country
+--WHERE SurfaceArea=(SELECT min(SurfaceArea )FROM Country)
+
+/*Q18*/
+/*SELECT NAME,Population,Region FROM Country
+WHERE Region=(SELECT Region FROM Country
+ WHERE Name is 'Armenia')
+ ORDER by Population DESC
+ 
+ /*Q19*/
+ /*SELECT name,Population from Country
+ WHERE Population&lt;(SELECT avg(population) FROM Country)
+ ORDER by Population
+ LIMIT 10*/
+ 
+ /*Q20*/
+ /*SELECT name ,Region from Country as out
+ WHERE Population&gt;(SELECT avg(population)*5 from country
+ WHERE Region=out.Region)*/
+ 
+ /*Q21*/
+ 
+ 
+ 
+ 
+ 
+</sql><current_tab id="9"/></tab_sql></sqlb_project>

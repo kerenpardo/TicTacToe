@@ -1,24 +1,28 @@
 div.cards {
-    width: 140px;
-    height: 140px;
-      background-size: 110px 140px;   
-    background-color:yellow;
-     padding: 40px 40px 40px 40px; 
-      display: flex;
-    justify-content: center;
-    align-items: center;  
-  }
+  width: 140px;
+  height: 140px;
+    background-size: 110px 140px;   
+  background-color:white;
+   padding: 40px 40px 40px 40px; 
+    display: flex;
+  justify-content: center;
+  align-items: center;  
+}
   .cards:hover{
     cursor: pointer;
   }
-  .Xcard{
-    background-image:  url('./images/XX.png');
+    .Xcard{  
+      background-image:  url('./images/XX.png');
     background-repeat: no-repeat;
+    background-position:center;  
     
   }
+  
   .Ocard{
-    background-image: url('./images/OO.png');
+    background-image: url('./images/ooo.png');
     background-repeat: no-repeat;
+    background-position:center;
+
   }
 
   #board {
