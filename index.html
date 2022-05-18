@@ -12,9 +12,9 @@
     />
   </head>
   <button id="start">Start</button>
-    <button id="stop">Stop</button>
-    <span id="span"> </span>
-    <!-- <script src="timer.js"></script> -->
+  <button id="stop">Stop</button>
+  <span id="span"> </span>
+  <!-- <script src="timer.js"></script> -->
   <nav class="container-fluid d-flex align-items-center text-center">
     <div class="container">
       <div class="div_inside">
@@ -35,22 +35,40 @@
       </div>
       <div class="row justify-content-center">
         <div class="col-2 d-flex justify-content-center">
-          <img  name="player" src="images/o.png" />
+          <img name="player" src="images/o.png" />
         </div>
         <div class="col-2 d-flex justify-content-center">
-          <img  name="player" src="images/x.png" />
+          <img name="player" src="images/x.png" />
         </div>
       </div>
       <div class="row justify-content-center">
         <div class="col-2 d-flex justify-content-center">
-          <input id="player1" placeholder="Enter first player's name" />
+          <input
+            id="player1"
+            placeholder="Enter first player's name"
+            onfocusout="checkNames()"
+          />
         </div>
         <div class="col-2 d-flex justify-content-center">
-          <input id="player2"placeholder="Enter second player's name" />
+          <input
+            id="player2"
+            placeholder="Enter second player's name"
+            onfocusout="checkNames()"
+          />
         </div>
       </div>
+      <br />
+      <button
+        id="startGame"
+        class="button-34 button-disabbled"
+        onClick="init()"
+        disabled
+      >
+        Let's Go!
+      </button>
     </div>
-    <div id="board" class="container-fluid d-flaex py-3 "></div>
+
+    <div id="board" class="container-fluid py-3" hidden></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="main.js"></script>
