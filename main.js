@@ -10,10 +10,10 @@ let savedGame = []; //saved game to reload - array of cards
 let btnStart = document.getElementById("start");
 let btnStop = document.getElementById("stop");
 let span = document.getElementById("span");
-let timeStart, timeStop;
-
+let timeStart, timeStop
 // Player object
 function Player(id, name, cssClass, divElement) {
+  this.recordCards = null;
   this.id = id;
   this.name = name;
   this.cards = [];
@@ -158,6 +158,7 @@ function showCard(e) {
   } else {
     alert("Error");
   }
+  gameCards.push(e.target);
 }
 
 function CheckGameWon(card) {
@@ -204,8 +205,34 @@ function CheckGameWon(card) {
 
 function finishGame(winnerCard) {
   alert(`player ${winnerCard.symbol} won!!`);
+  let p = players.filter((v, i) =>
+    v.cssClass.split("")[i].toUpperCase() == winnerCard.symbol
+  )
+p[0].recordCards=gameCards;
+
   // disable board
   for (cardsRow of board) {
     cardsRow.forEach((card) => card.disable());
+  }
+}
+function hideCard() {
+  //added by Haya
+  // if(gameCards.length>0) vs ?
+
+  //e.target.disable();
+  for (p of players) {
+    p.active = !p.active
+    if (activePlayer.id != p.id) {
+      activePlayer = p;
+      activePlayer.myTurn();
+    }
+  }
+  //added by Haya
+  debugger;
+  const list = document.getElementById(gameCards[gameCards.length - 1].id).classList;
+  list.remove(list.contains("Ocard") ? "Ocard" : "Xcard");
+  gameCards.pop();
+  if (gameCards.length == 0) {
+    btnLastStep.removeEventListener('click', hideCard);
   }
 }
