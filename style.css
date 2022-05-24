@@ -11,16 +11,43 @@ div.cards {
 .cards:hover{
   cursor: pointer;
 }
-.Xcard{
-  background-image:  url('./images/XX.png');
+/* .Xcard{
+  /* background-image:  url('./images/XX.png');
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center; */
   
+/* } */
+
+.Xcard {
+  /* FONT-VARIANT: JIS90; */
+  background: black;
+  height: 7.8rem;
+  min-width: 12px;
+  position: relative;
+  left: -0.1rem;
+  top: -1.7763568394002505e-1rem;
+  transform: rotateZ(45deg);
+  /* border-radius: 6px; */
+  /* border: 2px solid rgb(154, 0, 165); */
 }
-.Ocard{
-  background-image: url('./images/OO.png');
-  background-repeat: no-repeat;
-  background-position: center;
+.Xcard::after {
+  background: black;
+  content: '';
+  height: 12px;
+  min-width: 7.8rem;
+  position: absolute;
+  left: -3.29rem;
+  top: 3.4rem;
+  /* border-radius: 7px; */
+  /* border: 2px solid rgb(154, 0, 165); */
+}
+.Ocard {
+  height: 120px;
+  min-width: 120px;
+  background-color: transparent;
+  border: 10px solid black;
+  border-radius: 100%;
+  position: relative;
 }
 
 #board {
