@@ -43,10 +43,21 @@ function Card(row, col, symbol) {
     this.divElement.removeEventListener("click", showCard);
     this.divElement.style.pointerEvents = "none";
   };
+  this.enable = function () {
+    debugger;
+    this.divElement.addEventListener("click",bla);
+    this.divElement.style.pointerEvents = "pointer";
+  };
+}
+
+let bla=function(){
+  debugger;
+  showcard(e);
 }
 
 // onfocusout callback - player names input element
 function checkNames() {
+  debugger;
   if (
     document.getElementById(`player1`).value != undefined &&
     document.getElementById(`player2`).value != undefined &&
@@ -129,6 +140,7 @@ function time_convert(num) {
 /********** Timer ********/
 
 function showCard(e) {
+  debugger;
   let activePlayer = players.filter((p) => p.active)[0];
   e.target.classList.add(activePlayer.cssClass);
   let curCard = null;
@@ -216,23 +228,36 @@ p[0].recordCards=gameCards;
   }
 }
 function hideCard() {
-  //added by Haya
-  // if(gameCards.length>0) vs ?
-
-  //e.target.disable();
+ if(gameCards.length>0){
   for (p of players) {
-    p.active = !p.active
-    if (activePlayer.id != p.id) {
-      activePlayer = p;
-      activePlayer.myTurn();
+    p.active = !p.active;
+    if (p.active) {
+      p.myTurn();
+    } else {
+      p.divElement.classList.remove("activePlayer");
     }
   }
+  
   //added by Haya
-  debugger;
+  
   const list = document.getElementById(gameCards[gameCards.length - 1].id).classList;
   list.remove(list.contains("Ocard") ? "Ocard" : "Xcard");
+
+  let x=gameCards[gameCards.length - 1].id[0]
+  let y=gameCards[gameCards.length - 1].id[1]
+  board[x][y].enable();
+
+  debugger;
+ // document.getElementById(gameCards[gameCards.length - 1]).enable();
+ //e.target.enable()
   gameCards.pop();
-  if (gameCards.length == 0) {
-    btnLastStep.removeEventListener('click', hideCard);
-  }
+
+  
+  // if (gameCards.length == 0) {
+  //   exit;
+  // //   debugger;
+  // // //  btnLastStep.removeEventListener('click', hideCard);
+  // //   document.getElementById("previousStep").disable=true; //.removeEventListener('click', hideCard);
+  // }
+}
 }
