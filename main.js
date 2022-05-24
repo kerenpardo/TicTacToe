@@ -130,7 +130,11 @@ function time_convert(num) {
 
 function showCard(e) {
   let activePlayer = players.filter((p) => p.active)[0];
-  e.target.classList.add(activePlayer.cssClass);
+  let a=document.createElement("div");
+  a.className=activePlayer.cssClass;
+  e.target.appendChild(a);
+  // let activePlayer = players.filter((p) => p.active)[0];
+  // e.target.classList.add(activePlayer.cssClass);
   let curCard = null;
   for (cardsRow of board) {
     if (curCard == null || curCard.length == 0) {
