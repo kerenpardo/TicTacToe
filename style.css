@@ -1,4 +1,5 @@
 div.cards {
+<<<<<<< HEAD
     width: 140px;
     height: 140px;
       background-size: 110px 140px;   
@@ -39,52 +40,97 @@ div.cards {
   }
   
   /* body{
+=======
+  width: 140px;
+  height: 140px;
+    background-size: 110px 140px;   
+  background-color: white;
+   padding: 40px 40px 40px 40px; 
+>>>>>>> 14b4a507b3c1b368938843cc9c4b6c1afd4d9cb7
     display: flex;
   justify-content: center;
-  align-items: center;
-  } */
-
-  div.cards.horizontal-Line{
-    border-bottom: 2.4px solid black;
-
-  }
+  align-items: center;  
+}
+.cards:hover{
+  cursor: pointer;
+}
+.Xcard{
+  background-image:  url('./images/XX.png');
+  background-repeat: no-repeat;
+  background-position: center;
   
-  div.cards.vertical-Line{
-    border-right: 2.4px solid black;
-  }
+}
+.Ocard{
+  background-image: url('./images/OO.png');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#board {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  width: 450px;
+  min-height:min-content;
+  margin-top:50px;
+   display: flex;
+  justify-content: center; 
+   align-items: center; 
+  background-color:white;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  perspective: 1000px;
+  border: 5px royalblue solid;
+  border-radius: 10px;
+}
+
+/* body{
+  display: flex;
+justify-content: center;
+align-items: center;
+} */
+
+div.cards.horizontal-Line{
+  border-bottom: 2.4px solid black;
+
+}
+
+div.cards.vertical-Line{
+  border-right: 2.4px solid black;
+}
 
 nav{
-  min-height: 40px;
-  background: rgb(94, 15, 221);
-  color: azure;
+min-height: 40px;
+background: rgb(94, 15, 221);
+color: azure;
 }
 nav .div_inside a{
-  color: white;
-  text-decoration: none;
-  padding: 0 12px;
+color: white;
+text-decoration: none;
+padding: 0 12px;
 }
 
 #player active{
-  font-weight: bold;
-  font-family: 'Lakki Reddy', cursive;
+font-weight: bold;
+font-family: 'Lakki Reddy', cursive;
 }
 
 #player nonActive{
-  font-weight: bold;
+font-weight: bold;
 }
 
 [name="player"]{
-  width: 80px;
-  height: 80px;
-  border-radius: 15px;
+width: 80px;
+height: 80px;
+border-radius: 15px;
 }
 
 input{
-  font-size: 12px;
-  border-color: lightgrey;
+font-size: 12px;
+border-color: lightgrey;
 }
 
 .activePlayer{
+<<<<<<< HEAD
   border: plum solid 8px;
 }
 
@@ -122,3 +168,38 @@ input{
 
 
 
+=======
+border: plum solid 8px;
+}
+
+.button-34 {
+background: #5E5DF0;
+border-radius: 999px;
+box-shadow: #5E5DF0 0 10px 20px -10px;
+box-sizing: border-box;
+color: #FFFFFF;
+cursor: pointer;
+font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+font-size: 16px;
+font-weight: 700;
+line-height: 24px;
+opacity: 1;
+outline: 0 solid transparent;
+padding: 8px 18px;
+user-select: none;
+-webkit-user-select: none;
+touch-action: manipulation;
+width: fit-content;
+word-break: break-word;
+border: 0;
+float: right;
+  margin-right: 46rem;
+}
+
+.button-disabbled{
+cursor: none;
+color: lightgray;
+background-color: aliceblue;
+
+}
+>>>>>>> 14b4a507b3c1b368938843cc9c4b6c1afd4d9cb7
