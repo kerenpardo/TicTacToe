@@ -1,28 +1,37 @@
-const board = [[], [], []];
-const players = [];
 const numOfCards = 9;
-//let activePlayer = null;
 const numOfPlayers = 2;
-let gameCards = []; //currentGame - array of cards
-let savedGame = []; //saved game to reload - array of cards
+let currentGame = null;
 
 // fields for timer
 let btnStart = document.getElementById("start");
 let btnStop = document.getElementById("stop");
 let span = document.getElementById("span");
 let timeStart, timeStop;
+
+function Game() {
+  this.movesArray = [];
+  this.board = [[], [], []];
+  this.players = [];
+  this.isGameWon = false;
+  this.gamesCounter = 1;
+
+  this.saveMe = function () {
+    localStorage.setItem("savedGame", JSON.stringify(this));
+  };
+
+  this.addGame = function () {
+    this.gamesCounter++;
+  };
+}
+
 // Player object
-function Player(id, name, cssClass, divElement) {
-  this.recordCards = null;
+function Player(id, name, cssClass) {
+  this.recordCards = [];
   this.id = id;
   this.name = name;
-  this.cards = [];
   this.active = false;
   this.cssClass = cssClass;
-  this.divElement = divElement;
-  this.addScore = function () {
-    this.pairs++;
-  };
+
   this.showMe = function () {
     document.getElementById(
       `player${id}`
@@ -31,6 +40,15 @@ function Player(id, name, cssClass, divElement) {
   this.myTurn = function () {
     document.getElementById(`player${this.id}`).classList.add("activePlayer");
   };
+  this.checkRecord = function (lastGameCards) {
+    if (this.recordCards.length > 0) {
+      if (this.recordCards.length > lastGameCards.length) {
+        this.recordCards = lastGameCards;
+      }
+    } else {
+      this.recordCards = lastGameCards;
+    }
+  };
 }
 
 // Card object
@@ -38,12 +56,20 @@ function Card(row, col, symbol) {
   this.row = row;
   this.col = col;
   this.symbol = symbol;
-  this.divElement = null;
   this.disable = function () {
-    this.divElement.removeEventListener("click", showCard);
-    this.divElement.style.pointerEvents = "none";
+    document
+      .getElementById(`${row}${col}`)
+      .removeEventListener("click", showCard);
+    document.getElementById(`${row}${col}`).style.pointerEvents = "none";
+  };
+  this.enable = function () {
+    document.getElementById(`${row}${col}`).addEventListener("click", showCard);
+    document.getElementById(`${row}${col}`).style.pointerEvents = "auto";
+    this.symbol = "";
   };
 }
+
+disableMenu();
 
 // onfocusout callback - player names input element
 function checkNames() {
@@ -61,46 +87,24 @@ function checkNames() {
 
 function init() {
   document.getElementById("startGame").style.display = "none";
+  currentGame = new Game();
+  //players
   for (let p = 0; p < numOfPlayers; p++) {
     let playerName = document.getElementById(`player${p + 1}`).value;
-    players.push(
-      new Player(
-        p + 1,
-        playerName,
-        "",
-        document.getElementById(`player${p + 1}`)
-      )
-    );
+    currentGame.players.push(new Player(p + 1, playerName, ""));
   }
-  players[0].cssClass = "Xcard";
-  players[1].cssClass = "Ocard";
+  currentGame.players[0].cssClass = "Xcard";
+  currentGame.players[1].cssClass = "Ocard";
 
-  players.forEach((v) => v.showMe());
-  players[0].myTurn();
-  players[0].active = true;
-  // activePlayer = players[0];
-  for (let i = 0; i < numOfCards / 3; i++) {
-    for (let j = 0; j < numOfCards / 3; j++) {
-      let card = new Card(i, j, "");
-      board[i][j] = card;
-      let divElement = document.createElement("div");
-      divElement.id = i + "" + j;
-      divElement.classList.add("cards");
-      document.querySelector("#board").appendChild(divElement);
-      document.querySelector("#board").classList.add("baord");
-      divElement.addEventListener("click", showCard);
-      if (i == 0 || i == 1) {
-        divElement.classList.add("horizontal-Line");
-      }
-      if (j == 0 || j == 1) {
-        divElement.classList.add("vertical-Line");
-      }
-      card.divElement = divElement;
-    }
-  }
-  document.querySelector("#board").removeAttribute("hidden");
+  currentGame.players.forEach((v) => v.showMe());
+  currentGame.players[0].myTurn();
+  currentGame.players[0].active = true;
+
+  //board
+  buildBoard();
+
+  enableMenu();
 }
-//init();
 
 /********** Timer ********/
 function timer(date1, date2) {
@@ -130,10 +134,12 @@ function time_convert(num) {
 /********** Timer ********/
 
 function showCard(e) {
-  let activePlayer = players.filter((p) => p.active)[0];
-  e.target.classList.add(activePlayer.cssClass);
+  let activePlayer = currentGame.players.filter((p) => p.active)[0];
+  let div = document.createElement("div");
+  div.className = activePlayer.cssClass;
+  e.target.appendChild(div);
   let curCard = null;
-  for (cardsRow of board) {
+  for (cardsRow of currentGame.board) {
     if (curCard == null || curCard.length == 0) {
       curCard = cardsRow.filter(
         (v) =>
@@ -144,22 +150,34 @@ function showCard(e) {
   }
   if (curCard[0] != null) {
     curCard[0].symbol = activePlayer.cssClass.split("")[0];
-    for (p of players) {
-      p.active = !p.active;
-      if (p.active) {
-        p.myTurn();
-      } else {
-        p.divElement.classList.remove("activePlayer");
+    currentGame.movesArray.push(curCard[0]);
+    curCard[0].disable();
+    if (currentGame.movesArray != null && currentGame.movesArray.length > 4) {
+      if (CheckGameWon(curCard[0]) || currentGame.movesArray.length == 9) {
+        finishGame(curCard[0]);
       }
     }
-    curCard[0].disable();
-    if (CheckGameWon(curCard[0])) {
-      finishGame(curCard[0]);
+    if (!currentGame.isGameWon) {
+      for (p of currentGame.players) {
+        p.active = !p.active;
+        if (p.active) {
+          p.myTurn();
+        } else {
+          document
+            .getElementById(`player${p.id}`)
+            .classList.remove("activePlayer");
+        }
+      }
     }
   } else {
     alert("Error");
   }
-  gameCards.push(e.target);
+  if (currentGame.movesArray.length == 1) {
+    document
+      .getElementById("previousStep")
+      .addEventListener("click", undoLastMove);
+    document.getElementById("previousStep").style.pointerEvents = "auto";
+  }
 }
 
 function CheckGameWon(card) {
@@ -169,7 +187,7 @@ function CheckGameWon(card) {
 
   //check row
   for (let j = 0; j < n; j++) {
-    if (board[x][j].symbol != card.symbol) break;
+    if (currentGame.board[x][j].symbol != card.symbol) break;
     if (j == n - 1) {
       return true;
     }
@@ -177,7 +195,7 @@ function CheckGameWon(card) {
 
   //check row
   for (let i = 0; i < n; i++) {
-    if (board[i][y].symbol != card.symbol) break;
+    if (currentGame.board[i][y].symbol != card.symbol) break;
     if (i == n - 1) {
       return true;
     }
@@ -186,7 +204,7 @@ function CheckGameWon(card) {
   //check diag
   if (x == y) {
     for (let i = 0; i < n; i++) {
-      if (board[i][i].symbol != card.symbol) break;
+      if (currentGame.board[i][i].symbol != card.symbol) break;
       if (i == n - 1) {
         return true;
       }
@@ -195,7 +213,7 @@ function CheckGameWon(card) {
   //check anti diag
   if (x + y == n - 1) {
     for (let i = 0; i < n; i++) {
-      if (board[i][n - 1 - i].symbol != card.symbol) break;
+      if (currentGame.board[i][n - 1 - i].symbol != card.symbol) break;
       if (i == n - 1) {
         return true;
       }
@@ -205,37 +223,223 @@ function CheckGameWon(card) {
 }
 
 function finishGame(winnerCard) {
-  alert(`player ${winnerCard.symbol} won!!`);
-  let p = players.filter(
-    (v, i) => v.cssClass.split("")[i].toUpperCase() == winnerCard.symbol
-  );
-  p[0].recordCards = gameCards;
-
-  // disable board
-  for (cardsRow of board) {
-    cardsRow.forEach((card) => card.disable());
+  if (currentGame.movesArray.length == 9) {
+    alert("No More moves to play, it's a tie");
+  } else {
+    currentGame.isGameWon = true;
+    let p = currentGame.players.filter(
+      (v) => v.cssClass.split("")[0].toUpperCase() == winnerCard.symbol
+    );
+    p[0].checkRecord(currentGame.movesArray);
+    // disable board
+    for (cardsRow of currentGame.board) {
+      cardsRow.forEach((card) => card.disable());
+    }
+    alert(`player ${winnerCard.symbol} won!!`);
   }
 }
-function hideCard() {
-  //added by Haya
-  // if(gameCards.length>0) vs ?
 
-  //e.target.disable();
-  for (p of players) {
-    p.active = !p.active;
-    if (activePlayer.id != p.id) {
-      activePlayer = p;
-      activePlayer.myTurn();
+function undoLastMove() {
+  let activePlayerClass = "";
+  if (currentGame.movesArray.length > 0) {
+    // switch players
+    for (p of currentGame.players) {
+      p.active = !p.active;
+      if (p.active) {
+        p.myTurn();
+        activePlayerClass = p.cssClass;
+      } else {
+        document
+          .getElementById(`player${p.id}`)
+          .classList.remove("activePlayer");
+      }
+    }
+
+    //remove board cell symbol
+    let lastMoveRow =
+      currentGame.movesArray[currentGame.movesArray.length - 1].row;
+    let lastMoveCol =
+      currentGame.movesArray[currentGame.movesArray.length - 1].col;
+    document.getElementById(`${lastMoveRow}${lastMoveCol}`).innerHTML = "";
+
+    //enable cell click
+    currentGame.board[lastMoveRow][lastMoveCol].enable();
+
+    //remove last played card
+    currentGame.movesArray.pop();
+
+    // if first move canceled => disable undo last step menu option
+    if (currentGame.movesArray.length == 0) {
+      document
+        .getElementById("previousStep")
+        .removeEventListener("click", undoLastMove);
+      document.getElementById("previousStep").style.pointerEvents = "none";
     }
   }
-  //added by Haya
-  debugger;
-  const list = document.getElementById(
-    gameCards[gameCards.length - 1].id
-  ).classList;
-  list.remove(list.contains("Ocard") ? "Ocard" : "Xcard");
-  gameCards.pop();
-  if (gameCards.length == 0) {
-    btnLastStep.removeEventListener("click", hideCard);
+}
+
+function restart() {
+  currentGame.isGameWon = false;
+  buildBoard();
+  currentGame.addGame();
+  if (currentGame.gamesCounter % 2 == 1) {
+    currentGame.players[0].myTurn();
+    currentGame.players[0].active = true;
+    currentGame.players[1].active = false;
+    document
+      .getElementById(`player${currentGame.players[1].id}`)
+      .classList.remove("activePlayer");
+  } else {
+    currentGame.players[1].myTurn();
+    currentGame.players[1].active = true;
+    currentGame.players[0].active = false;
+    document
+      .getElementById(`player${currentGame.players[0].id}`)
+      .classList.remove("activePlayer");
   }
+  currentGame.movesArray = [];
+}
+
+function buildBoard() {
+  document.querySelector("#board").innerHTML = "";
+  for (let i = 0; i < numOfCards / 3; i++) {
+    for (let j = 0; j < numOfCards / 3; j++) {
+      let card = new Card(i, j, "");
+      currentGame.board[i][j] = card;
+      let divElement = document.createElement("div");
+      divElement.id = i + "" + j;
+      divElement.classList.add("cards");
+      divElement.addEventListener("click", showCard);
+      if (i == 0 || i == 1) {
+        divElement.classList.add("horizontal-Line");
+      }
+      if (j == 0 || j == 1) {
+        divElement.classList.add("vertical-Line");
+      }
+      document.querySelector("#board").appendChild(divElement);
+    }
+  }
+  document.querySelector("#board").classList.add("baord");
+  document.querySelector("#board").removeAttribute("hidden");
+}
+
+function saveGame() {
+  currentGame.saveMe();
+}
+
+function loadGame() {
+  document.getElementById("startGame").style.display = "none";
+  if (localStorage.getItem("savedGame")) {
+    currentGame = Object.assign(
+      new Game(),
+      JSON.parse(localStorage.getItem("savedGame"))
+    );
+    currentGame.players = currentGame.players.map((v) => {
+      let recordCards = v.recordCards;
+      v = new Player(v.id, v.name, v.cssClass);
+      v.recordCards = recordCards;
+      return v;
+    });
+
+    document.getElementById(`player1`).value = currentGame.players[0].name;
+    document.getElementById(`player2`).value = currentGame.players[1].name;
+
+    document.querySelector("#board").innerHTML = "";
+    buildBoard();
+    currentGame.movesArray = currentGame.movesArray.map((v) => {
+      v = new Card(v.row, v.col, v.symbol);
+      return v;
+    });
+    for (let i = 0; i < currentGame.movesArray.length; i++) {
+      let div = document.createElement("div");
+      div.className = `${currentGame.movesArray[i].symbol}card`;
+      document
+        .getElementById(
+          `${currentGame.movesArray[i].row}${currentGame.movesArray[i].col}`
+        )
+        .appendChild(div);
+      currentGame.board[currentGame.movesArray[i].row][
+        currentGame.movesArray[i].col
+      ].symbol = currentGame.movesArray[i].symbol;
+      currentGame.board[currentGame.movesArray[i].row][
+        currentGame.movesArray[i].col
+      ].disable();
+    }
+    currentGame.players.forEach((v) => {
+      if (
+        v.cssClass.split("")[0].toUpperCase() ==
+        currentGame.movesArray[
+          currentGame.movesArray.length - 1
+        ].symbol.toUpperCase()
+      ) {
+        document
+          .getElementById(`player${v.id}`)
+          .classList.remove("activePlayer");
+      } else {
+        v.active = true;
+        v.myTurn();
+      }
+    });
+    if (currentGame.isGameWon) {
+      finishGame(currentGame.movesArray[currentGame.movesArray.length - 1]);
+    }
+  } else {
+    alert("No game saved");
+  }
+}
+
+function showRecord() {
+  if (
+    currentGame.players[0].recordCards.length == 0 &&
+    currentGame.players[1].recordCards.length == 0
+  ) {
+    alert(`No record yet...`);
+    return;
+  }
+  if (
+    currentGame.players[0].recordCards.length <
+      currentGame.players[1].recordCards.length &&
+    currentGame.players[0].recordCards.length > 0
+  ) {
+    alert(
+      `Record: ${currentGame.players[0].recordCards.length} moves, belong to ${currentGame.players[0].name}`
+    );
+  } else if (
+    currentGame.players[0].recordCards.length >
+      currentGame.players[1].recordCards.length &&
+    currentGame.players[1].recordCards.length > 0
+  ) {
+    alert(
+      `Record: ${currentGame.players[1].recordCards.length} moves, belong to ${currentGame.players[1].name}`
+    );
+  } else {
+    // players records equal or one of them has no record
+    if (currentGame.players[0].recordCards.length == 0) {
+      alert(
+        `Record: ${currentGame.players[1].recordCards.length} moves, belong to ${currentGame.players[1].name}`
+      );
+      return;
+    }
+    if (currentGame.players[1].recordCards.length == 0) {
+      alert(
+        `Record: ${currentGame.players[0].recordCards.length} moves, belong to ${currentGame.players[0].name}`
+      );
+      return;
+    }
+    alert(
+      `Record: ${currentGame.players[0].recordCards.length} moves, acheived by both players :)`
+    );
+  }
+}
+
+function enableMenu() {
+  const menuItems = document.querySelectorAll('[name="menuItem"]');
+  let menuItemsArray = [...menuItems];
+  menuItemsArray.forEach((v) => v.classList.add("menu-item-enabled"));
+}
+
+function disableMenu() {
+  const menuItems = document.querySelectorAll('[name="menuItem"]');
+  let menuItemsArray = [...menuItems];
+  menuItemsArray.forEach((v) => v.classList.add("menu-item-disabled"));
 }

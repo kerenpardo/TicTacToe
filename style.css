@@ -1,9 +1,7 @@
 div.cards {
-<<<<<<< HEAD
     width: 140px;
     height: 140px;
       background-size: 110px 140px;   
-    background-color:yellow;
      padding: 40px 40px 40px 40px; 
       display: flex;
     justify-content: center;
@@ -12,58 +10,37 @@ div.cards {
   .cards:hover{
     cursor: pointer;
   }
-  .Xcard{
-    background-image:  url('./images/XX.png');
-    background-repeat: no-repeat;
-    
-  }
-  .Ocard{
-    background-image: url('./images/OO.png');
-    background-repeat: no-repeat;
-  }
-
-  #board {
-    padding-top: 40px;
-    padding-bottom: 40px;
-    width: 450px;
-    min-height:min-content;
-    margin-top:50px;
-     display: flex;
-    justify-content: center; 
-     align-items: center; 
-    background-color:white;
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-    perspective: 1000px;
-    border: 5px royalblue solid;
-    border-radius: 10px;
-  }
-  
-  /* body{
-=======
-  width: 140px;
-  height: 140px;
-    background-size: 110px 140px;   
-  background-color: white;
-   padding: 40px 40px 40px 40px; 
->>>>>>> 14b4a507b3c1b368938843cc9c4b6c1afd4d9cb7
-    display: flex;
-  justify-content: center;
-  align-items: center;  
+ 
+.Xcard {
+  /* FONT-VARIANT: JIS90; */
+  background: black;
+  height: 7.8rem;
+  min-width: 12px;
+  position: relative;
+  left: -0.1rem;
+  top: -1.7763568394002505e-1rem;
+  transform: rotateZ(45deg);
+  /* border-radius: 6px; */
+  /* border: 2px solid rgb(154, 0, 165); */
 }
-.cards:hover{
-  cursor: pointer;
+.Xcard::after {
+  background: black;
+  content: '';
+  height: 12px;
+  min-width: 7.8rem;
+  position: absolute;
+  left: -3.29rem;
+  top: 3.4rem;
+  /* border-radius: 7px; */
+  /* border: 2px solid rgb(154, 0, 165); */
 }
-.Xcard{
-  background-image:  url('./images/XX.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  
-}
-.Ocard{
-  background-image: url('./images/OO.png');
-  background-repeat: no-repeat;
-  background-position: center;
+.Ocard {
+  height: 120px;
+  min-width: 120px;
+  background-color: transparent;
+  border: 10px solid black;
+  border-radius: 100%;
+  position: relative;
 }
 
 #board {
@@ -130,45 +107,6 @@ border-color: lightgrey;
 }
 
 .activePlayer{
-<<<<<<< HEAD
-  border: plum solid 8px;
-}
-
-.button-34 {
-  background: #5E5DF0;
-  border-radius: 999px;
-  box-shadow: #5E5DF0 0 10px 20px -10px;
-  box-sizing: border-box;
-  color: #FFFFFF;
-  cursor: pointer;
-  font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 24px;
-  opacity: 1;
-  outline: 0 solid transparent;
-  padding: 8px 18px;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  width: fit-content;
-  word-break: break-word;
-  border: 0;
-  float: right;
-    margin-right: 46rem;
-}
-
-.button-disabbled{
-  cursor: none;
-  color: grey;
-  background-color: aliceblue;
-
-}
-
-
-
-
-=======
 border: plum solid 8px;
 }
 
@@ -202,4 +140,11 @@ color: lightgray;
 background-color: aliceblue;
 
 }
->>>>>>> 14b4a507b3c1b368938843cc9c4b6c1afd4d9cb7
+
+.menu-item-disabled{
+pointer-events: none;
+}
+
+.menu-item-enabled{
+  pointer-events: auto;
+  }

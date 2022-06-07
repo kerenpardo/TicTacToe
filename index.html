@@ -18,11 +18,19 @@
   <nav class="container-fluid d-flex align-items-center text-center">
     <div class="container">
       <div class="div_inside">
-        <a href="#">משחק חדש</a>
-        <a href="#" onclick="hideCard()">מחיקת צעד אחרון</a>
-        <a href="#">הצג שיא</a>
-        <a href="#">שמור משחק</a>
-        <a href="#">טען משחק</a>
+        <a href="#" id="restart" name="menuItem" onclick="restart();"
+          >משחק חדש</a
+        >
+        <a href="#" id="previousStep" name="menuItem">מחיקת צעד אחרון</a>
+        <a href="#" id="showRecord" name="menuItem" onclick="showRecord();"
+          >הצג שיא</a
+        >
+        <a href="#" id="saveGame" name="menuItem" onclick="saveGame();"
+          >שמור משחק</a
+        >
+        <a href="#" id="loadGame" name="menuItem" onclick="loadGame();"
+          >טען משחק</a
+        >
       </div>
     </div>
   </nav>
@@ -35,17 +43,10 @@
       </div>
       <div class="row justify-content-center">
         <div class="col-2 d-flex justify-content-center">
-<<<<<<< HEAD
-          <img name="player" src="images/o.png" />
-        </div>
-        <div class="col-2 d-flex justify-content-center">
-          <img name="player" src="images/x.png" />
-=======
           <img name="player" src="images/x.png" />
         </div>
         <div class="col-2 d-flex justify-content-center">
           <img name="player" src="images/o.png" />
->>>>>>> 14b4a507b3c1b368938843cc9c4b6c1afd4d9cb7
         </div>
       </div>
       <div class="row justify-content-center">
@@ -54,10 +55,7 @@
             id="player1"
             placeholder="Enter first player's name"
             onfocusout="checkNames()"
-<<<<<<< HEAD
-=======
             oninput="checkNames()"
->>>>>>> 14b4a507b3c1b368938843cc9c4b6c1afd4d9cb7
           />
         </div>
         <div class="col-2 d-flex justify-content-center">
@@ -65,10 +63,7 @@
             id="player2"
             placeholder="Enter second player's name"
             onfocusout="checkNames()"
-<<<<<<< HEAD
-=======
             oninput="checkNames()"
->>>>>>> 14b4a507b3c1b368938843cc9c4b6c1afd4d9cb7
           />
         </div>
       </div>
