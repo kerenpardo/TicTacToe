@@ -39,6 +39,7 @@ function Card(row, col, symbol) {
   this.col = col;
   this.symbol = symbol;
   this.divElement = null;
+  
   this.disable = function () {
     this.divElement.removeEventListener("click", showCard);
     this.divElement.style.pointerEvents = "none";
