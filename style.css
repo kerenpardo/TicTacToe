@@ -1,23 +1,16 @@
 div.cards {
-  width: 140px;
-  height: 140px;
-    background-size: 110px 140px;   
-  background-color: white;
-   padding: 40px 40px 40px 40px; 
-    display: flex;
-  justify-content: center;
-  align-items: center;  
-}
-.cards:hover{
-  cursor: pointer;
-}
-/* .Xcard{
-  /* background-image:  url('./images/XX.png');
-  background-repeat: no-repeat;
-  background-position: center; */
-  
-/* } */
-
+    width: 140px;
+    height: 140px;
+      background-size: 110px 140px;   
+     padding: 40px 40px 40px 40px; 
+      display: flex;
+    justify-content: center;
+    align-items: center;  
+  }
+  .cards:hover{
+    cursor: pointer;
+  }
+ 
 .Xcard {
   /* FONT-VARIANT: JIS90; */
   background: black;
@@ -59,11 +52,12 @@ div.cards {
    display: flex;
   justify-content: center; 
    align-items: center; 
-  background-color:white;
+  /* background-color:white; */
+  background-color:transparent;
   display: grid;
   grid-template-columns: repeat(3, auto);
   perspective: 1000px;
-  border: 5px royalblue solid;
+  /* border: 5px royalblue solid; */
   border-radius: 10px;
 }
 
@@ -74,12 +68,12 @@ align-items: center;
 } */
 
 div.cards.horizontal-Line{
-  border-bottom: 2.4px solid black;
+  border-bottom: 4px solid black;
 
 }
 
 div.cards.vertical-Line{
-  border-right: 2.4px solid black;
+  border-right: 4px solid black;
 }
 
 nav{
@@ -147,3 +141,25 @@ color: lightgray;
 background-color: aliceblue;
 
 }
+
+.menu-item-disabled{
+pointer-events: none;
+}
+
+.menu-item-enabled{
+  pointer-events: auto;
+  }
+  
+  #message{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size:x-large;
+  }
+
+  body{
+    background-image: url('./images/b.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
