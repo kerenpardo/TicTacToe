@@ -13,16 +13,24 @@
   </head>
   <button id="start">Start</button>
   <button id="stop">Stop</button>
-  <span id="span"> </span>
+  <span id="timerSpan" hidden> </span>
   <!-- <script src="timer.js"></script> -->
   <nav class="container-fluid d-flex align-items-center text-center">
     <div class="container">
       <div class="div_inside">
-        <a href="#">משחק חדש</a>
-        <a href="#" id="previousStep" onclick="hideCard()">מחיקת צעד אחרון</a>
-        <a href="#">הצג שיא</a>
-        <a href="#">שמור משחק</a>
-        <a href="#">טען משחק</a>
+        <a href="#" id="restart" name="menuItem" onclick="restart();"
+          >משחק חדש</a
+        >
+        <a href="#" id="previousStep" name="menuItem">מחיקת צעד אחרון</a>
+        <a href="#" id="showRecord" name="menuItem" onclick="showRecord();"
+          >הצג שיא</a
+        >
+        <a href="#" id="saveGame" name="menuItem" onclick="saveGame();"
+          >שמור משחק</a
+        >
+        <a href="#" id="loadGame" name="menuItem" onclick="loadGame();"
+          >טען משחק</a
+        >
       </div>
     </div>
   </nav>
