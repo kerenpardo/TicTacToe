@@ -18,11 +18,19 @@
   <nav class="container-fluid d-flex align-items-center text-center">
     <div class="container">
       <div class="div_inside">
-        <a href="#">משחק חדש</a>
-        <a href="#" onclick="hideCard()">מחיקת צעד אחרון</a>
-        <a href="#">הצג שיא</a>
-        <a href="#">שמור משחק</a>
-        <a href="#">טען משחק</a>
+        <a href="#" id="restart" name="menuItem" onclick="restart();"
+          >משחק חדש</a
+        >
+        <a href="#" id="previousStep" name="menuItem">מחיקת צעד אחרון</a>
+        <a href="#" id="showRecord" name="menuItem" onclick="showRecord();"
+          >הצג שיא</a
+        >
+        <a href="#" id="saveGame" name="menuItem" onclick="saveGame();"
+          >שמור משחק</a
+        >
+        <a href="#" id="loadGame" name="menuItem" onclick="loadGame();"
+          >טען משחק</a
+        >
       </div>
     </div>
   </nav>
@@ -69,6 +77,7 @@
         Let's Go!
       </button>
     </div>
+    <div id="message"></div>
 
     <div id="board" class="container-fluid py-3" hidden></div>
 
