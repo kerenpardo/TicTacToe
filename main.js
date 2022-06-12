@@ -1,7 +1,6 @@
 const numOfCards = 9;
 const numOfPlayers = 2;
 let currentGame = null;
-<<<<<<< HEAD
 
 function Game() {
   this.movesArray = [];
@@ -21,31 +20,6 @@ function Game() {
   };
 }
 
-=======
-
-// fields for timer
-let btnStart = document.getElementById("start");
-let btnStop = document.getElementById("stop");
-let span = document.getElementById("span");
-let timeStart, timeStop;
-
-function Game() {
-  this.movesArray = [];
-  this.board = [[], [], []];
-  this.players = [];
-  this.isGameWon = false;
-  this.gamesCounter = 1;
-
-  this.saveMe = function () {
-    localStorage.setItem("savedGame", JSON.stringify(this));
-  };
-
-  this.addGame = function () {
-    this.gamesCounter++;
-  };
-}
-
->>>>>>> a0eada6dae872fe0aa4ac597c53d6cc3c689f893
 // Player object
 function Player(id, name, cssClass) {
   this.recordCards = [];
@@ -78,11 +52,6 @@ function Card(row, col, symbol) {
   this.row = row;
   this.col = col;
   this.symbol = symbol;
-<<<<<<< HEAD
-=======
-  this.divElement = null;
-
->>>>>>> a0eada6dae872fe0aa4ac597c53d6cc3c689f893
   this.disable = function () {
     document
       .getElementById(`${row}${col}`)
@@ -131,13 +100,10 @@ function init() {
   buildBoard();
 
   enableMenu();
-<<<<<<< HEAD
   //init timer
   currentGame.startDate = Date.now();
   currentGame.duration=0;
   beginTimer();
-=======
->>>>>>> a0eada6dae872fe0aa4ac597c53d6cc3c689f893
 }
 
 /********** Timer ********/
@@ -254,12 +220,7 @@ function CheckGameWon(card) {
 
 function finishGame(winnerCard) {
   if (currentGame.movesArray.length == 9) {
-<<<<<<< HEAD
     alert("No More moves to play, it's a tie");
-=======
-    document.getElementById('message').innerHTML = "No More moves to play, it's a tie"
-    // alert("No More moves to play, it's a tie");
->>>>>>> a0eada6dae872fe0aa4ac597c53d6cc3c689f893
   } else {
     currentGame.isGameWon = true;
     let p = currentGame.players.filter(
@@ -270,12 +231,7 @@ function finishGame(winnerCard) {
     for (cardsRow of currentGame.board) {
       cardsRow.forEach((card) => card.disable());
     }
-<<<<<<< HEAD
     alert(`player ${winnerCard.symbol} won!!`);
-=======
-    document.getElementById('message').innerHTML = `player ${winnerCard.symbol} won!!`
-    // alert(`player ${winnerCard.symbol} won!!`);
->>>>>>> a0eada6dae872fe0aa4ac597c53d6cc3c689f893
   }
   clearInterval(myVar);
 }
@@ -339,11 +295,8 @@ function restart() {
       .classList.remove("activePlayer");
   }
   currentGame.movesArray = [];
-<<<<<<< HEAD
   currentGame.startDate=Date.now();
   currentGame.duration=0;
-=======
->>>>>>> a0eada6dae872fe0aa4ac597c53d6cc3c689f893
 }
 
 function buildBoard() {
@@ -370,10 +323,7 @@ function buildBoard() {
 }
 
 function saveGame() {
-<<<<<<< HEAD
   currentGame.duration=(Date.now()-currentGame.startDate) / 1000;
-=======
->>>>>>> a0eada6dae872fe0aa4ac597c53d6cc3c689f893
   currentGame.saveMe();
 }
 
@@ -433,15 +383,9 @@ function loadGame() {
     if (currentGame.isGameWon) {
       finishGame(currentGame.movesArray[currentGame.movesArray.length - 1]);
     }
-<<<<<<< HEAD
    currentGame.startDate=Date.now()-currentGame.duration*1000;
   } else {
     alert("No game saved");
-=======
-  } else {
-    document.getElementById('message').innerHTML = "No game saved"
-    // alert("No game saved");
->>>>>>> a0eada6dae872fe0aa4ac597c53d6cc3c689f893
   }
 }
 
@@ -450,17 +394,11 @@ function showRecord() {
     currentGame.players[0].recordCards.length == 0 &&
     currentGame.players[1].recordCards.length == 0
   ) {
-<<<<<<< HEAD
     alert(`No record yet...`);
-=======
-    document.getElementById('message').innerHTML = "No record yet..."
-    // alert(`No record yet...`);
->>>>>>> a0eada6dae872fe0aa4ac597c53d6cc3c689f893
     return;
   }
   if (
     currentGame.players[0].recordCards.length <
-<<<<<<< HEAD
       currentGame.players[1].recordCards.length &&
     currentGame.players[0].recordCards.length > 0
   ) {
@@ -492,44 +430,6 @@ function showRecord() {
     alert(
       `Record: ${currentGame.players[0].recordCards.length} moves, acheived by both players :)`
     );
-=======
-    currentGame.players[1].recordCards.length &&
-    currentGame.players[0].recordCards.length > 0
-  ) {
-    document.getElementById('message').innerHTML =  `Record: ${currentGame.players[0].recordCards.length} moves, belong to ${currentGame.players[0].name}`
-    // alert(
-    //   `Record: ${currentGame.players[0].recordCards.length} moves, belong to ${currentGame.players[0].name}`
-    // );
-  } else if (
-    currentGame.players[0].recordCards.length >
-    currentGame.players[1].recordCards.length &&
-    currentGame.players[1].recordCards.length > 0
-  ) {
-    document.getElementById('message').innerHTML = `Record: ${currentGame.players[1].recordCards.length} moves, belong to ${currentGame.players[1].name}`
-    // alert(
-    //   `Record: ${currentGame.players[1].recordCards.length} moves, belong to ${currentGame.players[1].name}`
-    // );
-  } else {
-    // players records equal or one of them has no record
-    if (currentGame.players[0].recordCards.length == 0) {
-      document.getElementById('message').innerHTML =`Record: ${currentGame.players[1].recordCards.length} moves, belong to ${currentGame.players[1].name}`
-      // alert(
-      //   `Record: ${currentGame.players[1].recordCards.length} moves, belong to ${currentGame.players[1].name}`
-      // );
-      return;
-    }
-    if (currentGame.players[1].recordCards.length == 0) {
-      document.getElementById('message').innerHTML =`Record: ${currentGame.players[0].recordCards.length} moves, belong to ${currentGame.players[0].name}`
-      // alert(
-      //   `Record: ${currentGame.players[0].recordCards.length} moves, belong to ${currentGame.players[0].name}`
-      // );
-      return;
-    }
-    document.getElementById('message').innerHTML = `Record: ${currentGame.players[0].recordCards.length} moves, acheived by both players :)`
-    // alert(
-    //   `Record: ${currentGame.players[0].recordCards.length} moves, acheived by both players :)`
-    // );
->>>>>>> a0eada6dae872fe0aa4ac597c53d6cc3c689f893
   }
 }
 
@@ -543,8 +443,4 @@ function disableMenu() {
   const menuItems = document.querySelectorAll('[name="menuItem"]');
   let menuItemsArray = [...menuItems];
   menuItemsArray.forEach((v) => v.classList.add("menu-item-disabled"));
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> a0eada6dae872fe0aa4ac597c53d6cc3c689f893
