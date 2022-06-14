@@ -1,6 +1,7 @@
 const numOfCards = 9;
 const numOfPlayers = 2;
 let currentGame = null;
+let timerVar;
 
 function Game() {
   this.movesArray = [];
@@ -110,7 +111,7 @@ function init() {
 
 function beginTimer(){
     document.getElementById("timerSpan").removeAttribute("hidden");
-    setInterval(myTimer, 1000);
+   timerVar= setInterval(myTimer, 1000);
   }
 
 function myTimer() {
@@ -233,7 +234,7 @@ function finishGame(winnerCard) {
     }
     alert(`player ${winnerCard.symbol} won!!`);
   }
-  clearInterval(myVar);
+  clearInterval(timerVar);
 }
 
 function undoLastMove() {
@@ -295,6 +296,7 @@ function restart() {
       .classList.remove("activePlayer");
   }
   currentGame.movesArray = [];
+  beginTimer();
   currentGame.startDate=Date.now();
   currentGame.duration=0;
 }
