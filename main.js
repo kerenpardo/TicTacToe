@@ -10,7 +10,7 @@ function Game() {
   this.isGameWon = false;
   this.gamesCounter = 1;
   this.startDate = new Date();
-  this.duration=0;
+  this.duration = 0;
 
   this.saveMe = function () {
     localStorage.setItem("savedGame", JSON.stringify(this));
@@ -103,7 +103,7 @@ function init() {
   enableMenu();
   //init timer
   currentGame.startDate = Date.now();
-  currentGame.duration=0;
+  currentGame.duration = 0;
   beginTimer();
 }
 
@@ -116,7 +116,7 @@ function beginTimer(){
 
 function myTimer() {
   const d = new Date();
-  currentGame.duration=(Date.now()-currentGame.startDate)/1000;
+  currentGame.duration = (Date.now() - currentGame.startDate) / 1000;
   document.getElementById("timerSpan").innerText = time_convert(Math.round(currentGame.duration));
   //document.getElementById("timerSpan").innerText = time_convert(Math.round((Date.now()-currentGame.startDate)/1000));
 }
@@ -167,7 +167,8 @@ function showCard(e) {
       }
     }
   } else {
-    alert("Error");
+    document.getElementById('message').innerHTML = 'Error'
+    // alert("Error");
   }
   if (currentGame.movesArray.length == 1) {
     document
@@ -221,7 +222,8 @@ function CheckGameWon(card) {
 
 function finishGame(winnerCard) {
   if (currentGame.movesArray.length == 9) {
-    alert("No More moves to play, it's a tie");
+    document.getElementById('message').innerHTML = "No More moves to play, it's a tie"
+    // alert("No More moves to play, it's a tie");
   } else {
     currentGame.isGameWon = true;
     let p = currentGame.players.filter(
@@ -232,7 +234,8 @@ function finishGame(winnerCard) {
     for (cardsRow of currentGame.board) {
       cardsRow.forEach((card) => card.disable());
     }
-    alert(`player ${winnerCard.symbol} won!!`);
+    document.getElementById('message').innerHTML = `player ${winnerCard.symbol} won!!`
+    // alert(`player ${winnerCard.symbol} won!!`);
   }
   clearInterval(timerVar);
 }
@@ -325,7 +328,7 @@ function buildBoard() {
 }
 
 function saveGame() {
-  currentGame.duration=(Date.now()-currentGame.startDate) / 1000;
+  currentGame.duration = (Date.now() - currentGame.startDate) / 1000;
   currentGame.saveMe();
 }
 
@@ -385,9 +388,10 @@ function loadGame() {
     if (currentGame.isGameWon) {
       finishGame(currentGame.movesArray[currentGame.movesArray.length - 1]);
     }
-   currentGame.startDate=Date.now()-currentGame.duration*1000;
+    currentGame.startDate = Date.now() - currentGame.duration * 1000;
   } else {
-    alert("No game saved");
+    document.getElementById('message').innerHTML = "No game saved"
+    // alert("No game saved");
   }
 }
 
@@ -396,42 +400,48 @@ function showRecord() {
     currentGame.players[0].recordCards.length == 0 &&
     currentGame.players[1].recordCards.length == 0
   ) {
-    alert(`No record yet...`);
+    document.getElementById('message').innerHTML = `No record yet...`
+    // alert(`No record yet...`);
     return;
   }
   if (
     currentGame.players[0].recordCards.length <
-      currentGame.players[1].recordCards.length &&
+    currentGame.players[1].recordCards.length &&
     currentGame.players[0].recordCards.length > 0
   ) {
-    alert(
-      `Record: ${currentGame.players[0].recordCards.length} moves, belong to ${currentGame.players[0].name}`
-    );
+    document.getElementById('message').innerHTML = `Record: ${currentGame.players[0].recordCards.length} moves, belong to ${currentGame.players[0].name}`
+    // alert(
+    //   `Record: ${currentGame.players[0].recordCards.length} moves, belong to ${currentGame.players[0].name}`
+    // );
   } else if (
     currentGame.players[0].recordCards.length >
-      currentGame.players[1].recordCards.length &&
+    currentGame.players[1].recordCards.length &&
     currentGame.players[1].recordCards.length > 0
   ) {
-    alert(
-      `Record: ${currentGame.players[1].recordCards.length} moves, belong to ${currentGame.players[1].name}`
-    );
+    document.getElementById('message').innerHTML = `Record: ${currentGame.players[1].recordCards.length} moves, belong to ${currentGame.players[1].name}`
+    // alert(
+    //   `Record: ${currentGame.players[1].recordCards.length} moves, belong to ${currentGame.players[1].name}`
+    // );
   } else {
     // players records equal or one of them has no record
     if (currentGame.players[0].recordCards.length == 0) {
-      alert(
-        `Record: ${currentGame.players[1].recordCards.length} moves, belong to ${currentGame.players[1].name}`
-      );
+      document.getElementById('message').innerHTML = `Record: ${currentGame.players[1].recordCards.length} moves, belong to ${currentGame.players[1].name}`
+      // alert(
+      //   `Record: ${currentGame.players[1].recordCards.length} moves, belong to ${currentGame.players[1].name}`
+      // );
       return;
     }
     if (currentGame.players[1].recordCards.length == 0) {
-      alert(
-        `Record: ${currentGame.players[0].recordCards.length} moves, belong to ${currentGame.players[0].name}`
-      );
+      document.getElementById('message').innerHTML = `Record: ${currentGame.players[0].recordCards.length} moves, belong to ${currentGame.players[0].name}`
+      // alert(
+      //   `Record: ${currentGame.players[0].recordCards.length} moves, belong to ${currentGame.players[0].name}`
+      // );
       return;
     }
-    alert(
-      `Record: ${currentGame.players[0].recordCards.length} moves, acheived by both players :)`
-    );
+    document.getElementById('message').innerHTML = `Record: ${currentGame.players[0].recordCards.length} moves, acheived by both players :)`
+    // alert(
+    //   `Record: ${currentGame.players[0].recordCards.length} moves, acheived by both players :)`
+    // );
   }
 }
 
