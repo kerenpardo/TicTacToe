@@ -53,7 +53,8 @@ div.cards {
   justify-content: center; 
    align-items: center; 
   /* background-color:white; */
-  background-color:transparent;
+  background-color:aliceblue;
+  opacity: 50%;
   display: grid;
   grid-template-columns: repeat(3, auto);
   perspective: 1000px;
